@@ -88,60 +88,7 @@ function VWFunctions.CreateID()
         else
             game:GetService("Players").LocalPlayer:Kick("Voidware Error]: Error doing step1 Error code: 2000".." | "..tostring(a["StatusCode"]))
         end--]]
-        if shared.api_key then
-            local key = shared.api_key
-            local headers = {
-                ["Content-type"] = "application/json",
-                ["api-key"] = tostring(key)
-            }
-        
-            local jsondata = {
-                ["roblox_username"] = tostring(game.Players.LocalPlayer.Name)
-            }
-        
-            local res = request({
-                Url = 'https://whitelist.vapevoidware.xyz/edit_wl',
-                Method = 'POST',
-                Headers = headers,
-                Body = game:GetService("HttpService"):JSONEncode(jsondata)
-            })
-        
-            if res['StatusCode'] == 200 then
-                InfoNotification("Voidware Whitelist", "Successfully whitelisted you upon execution. If you aren't whitelist, rejoin!", 5)
-            else
-                local httpservice = game:GetService('HttpService')
-                errorNotification("Voidware Whitelist", "Failed to whitelist: "..((httpservice:JSONDecode(res.Body).error) or "Unknown error"), 10)
-            end
-        end
-
-        if shared.connection_key then
-            local key = shared.connection_key
-            local headers = {
-                ["Content-type"] = "application/json",
-            }
-        
-            local jsondata = {
-                ["roblox_user_id"] = tonumber(game:GetService("Players").LocalPlayer.UserId),
-                ["connection_key"] = tostring(key),
-            }
-        
-            local res = request({
-                Url = 'https://storage.vapevoidware.xyz/storage/redeem-key',
-                Method = 'POST',
-                Headers = headers,
-                Body = game:GetService("HttpService"):JSONEncode(jsondata)
-            })
-
-            print(res.Body)
-        
-            if res['StatusCode'] == 200 then
-                InfoNotification("Voidware Connection Key", "Successfully connected key!", 5)
-            else
-                local httpservice = game:GetService('HttpService')
-                errorNotification("Voidware Connection Key", "Failed to connect key: "..((httpservice:JSONDecode(res.Body).error) or "Unknown error"), 10)
-            end
-        end
-    
+			
         --[[if shared.VoidDev then
             print("Raw Response: "..tostring(a))
             print("Decompressed data showing below:")
